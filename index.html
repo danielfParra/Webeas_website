@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<title>WEBEAS</title>
+<script src="./assets/js/support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<script src="./image-slot.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&amp;family=Public+Sans:wght@500;600&amp;display=swap" rel="stylesheet">
@@ -19,6 +19,8 @@ a{color:#094cb2;text-decoration:none}
 a:hover{color:#2f6be0}
 ::selection{background:#094cb2;color:#fff}
 input::placeholder{color:#7d828c}
+.sponsor-card{background:#fff;border-radius:16px;height:96px;padding:12px;display:flex;align-items:center;justify-content:center}
+.sponsor-logo{display:block;width:100%;height:100%;object-fit:contain}
 </style>
 </helmet>
 
@@ -87,14 +89,14 @@ input::placeholder{color:#7d828c}
     <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ false }}">
       <div data-reveal="" style="background:#171a1f;color:#fff;border-radius:28px;padding:clamp(28px,4vw,48px);display:flex;flex-wrap:wrap;gap:32px 56px;margin-bottom:8px">
         <div style="flex:0 1 220px;display:flex;flex-direction:column;gap:6px">
-          <span style="display:flex;align-items:center;gap:8px;font-family:'Public Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#565b65;color:#e6d27a"><span data-pulse="" style="width:8px;height:8px;border-radius:50%;background:#e6d27a;display:inline-block"></span>Next speaker</span>
+          <span style="display:flex;align-items:center;gap:8px;font-family:'Public Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#565b65;color:#e6d27a"><span data-pulse="" style="width:8px;height:8px;border-radius:50%;background:#e6d27a;display:inline-block"></span>Next seminar</span>
           <span style="font-size:clamp(64px,8vw,112px);font-weight:500;letter-spacing:-.05em;line-height:.9;margin-top:10px;font-variant-numeric:tabular-nums">{{ next.day }}</span>
           <span style="font-size:17px;font-weight:500">{{ next.monthLong }} {{ next.year }}</span>
           <span style="font-size:15px;color:#b4bac4">{{ next.weekdayLong }} · {{ next.time }}</span>
         </div>
         <div style="flex:1 1 380px;display:flex;flex-direction:column;justify-content:space-between;gap:28px">
           <div style="display:flex;flex-direction:column;gap:10px">
-            <span style="font-size:clamp(26px,3vw,38px);font-weight:500;letter-spacing:-.02em;line-height:1.1">{{ next.speaker }}</span>
+            <span style="font-size:clamp(26px,3vw,38px);font-weight:500;letter-spacing:-.02em;line-height:1.1">{{ next.speakerText }}</span>
             <span style="font-size:16px;color:#b4bac4">{{ next.aff }}</span>
             <span style="font-size:clamp(19px,1.8vw,23px);line-height:1.4;margin-top:14px;max-width:36ch;text-wrap:pretty">{{ next.titleText }}</span>
           </div>
@@ -177,16 +179,16 @@ input::placeholder{color:#7d828c}
         <div data-reveal="" style="display:flex;flex-direction:column;gap:16px">
           <span style="font-family:'Public Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#565b65">Sponsors</span>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px">
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-1" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-2" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-3" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-4" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-5" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-6" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-7" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-8" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-9" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
-            <div style="background:#fff;border-radius:16px;height:96px;padding:12px"><image-slot id="sponsor-10" fit="contain" shape="rounded" radius="10" placeholder="Sponsor logo" style="width:100%;height:100%"></image-slot></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/carleton-university.webp" alt="Carleton University" width="468" height="384" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/george-mason-university.webp" alt="George Mason University" width="389" height="463" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/itam.webp" alt="Instituto Tecnológico Autónomo de México (ITAM)" width="800" height="246" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/pontificia-universidad-javeriana.webp" alt="Pontificia Universidad Javeriana" width="1011" height="471" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/tecnologico-de-monterrey.webp" alt="Tecnológico de Monterrey" width="1020" height="279" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/texas-am-university.webp" alt="Texas A&amp;M University" width="950" height="745" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/universidad-de-piura-cree.webp" alt="Universidad de Piura (UDEP / CREE)" width="343" height="147" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/universidad-de-los-andes.webp" alt="Universidad de los Andes" width="640" height="246" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/universidad-del-pacifico.webp" alt="Universidad del Pacífico" width="1090" height="362" loading="lazy" decoding="async"></div>
+            <div class="sponsor-card"><img class="sponsor-logo" src="./assets/images/logos/uc-santa-cruz.webp" alt="University of California, Santa Cruz" width="640" height="190" loading="lazy" decoding="async"></div>
           </div>
         </div>
       </div>
@@ -249,7 +251,7 @@ input::placeholder{color:#7d828c}
       <div data-reveal="" style="display:flex;flex-direction:column;gap:18px;max-width:560px">
         <span style="font-family:'Public Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#565b65;color:#b4bac4">Contact</span>
         <span style="font-size:clamp(28px,3.4vw,42px);font-weight:500;letter-spacing:-.03em;line-height:1.1">Questions or suggestions?</span>
-        <a href="mailto:klopezva@ucsc.edu" style="color:#fff;font-size:clamp(18px,1.8vw,22px);align-self:flex-start;text-decoration:underline;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:6px" style-hover="color:#9fbdf5">klopezva@ucsc.edu</a>
+        <a href="mailto:danielfparra@javeriana.edu.co" style="color:#fff;font-size:clamp(18px,1.8vw,22px);align-self:flex-start;text-decoration:underline;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:6px" style-hover="color:#9fbdf5">danielfparra@javeriana.edu.co</a>
       </div>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSdGf3jcPtH-DmJgy-Sg2C7DdKl3N2m4wqWA1lIGvFNaYhrK1A/viewform" target="_blank" style="background:linear-gradient(135deg,#094cb2,#2f6be0);color:#fff;border-radius:999px;font-weight:600;padding:14px 22px;font-size:15px" style-hover="color:#fff;filter:brightness(1.1)">Join the mailing list →</a>
     </div>
@@ -378,7 +380,7 @@ function downloadICS(t) {
   const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//WEBEAS//Seminar//EN','BEGIN:VEVENT',
     'UID:' + d + '-webeas@webeas.org','DTSTAMP:' + d + 'T000000Z',
     'DTSTART;TZID=America/New_York:' + d + 'T120000','DTEND;TZID=America/New_York:' + d + 'T130000',
-    'SUMMARY:' + esc('WEBEAS — ' + t.speaker),
+    'SUMMARY:' + esc(t.speaker ? 'WEBEAS — ' + t.speaker : 'WEBEAS seminar'),
     'DESCRIPTION:' + esc((t.title || 'Title TBA') + ' — Zoom link is sent to the mailing list. Register: ' + FORM),
     'LOCATION:Zoom','END:VEVENT','END:VCALENDAR'].join('\r\n');
   const a = document.createElement('a');
@@ -457,7 +459,7 @@ class Component extends DCLogic {
       t.addCal = () => downloadICS(t);
       return t;
     });
-    const next = termTalks.find(t => t.hasSpeaker);
+    const next = termTalks[0];
     if (next) { next.isNext = true; next.rowBg = '#e8effc'; }
     const termGroups = [...new Set(termTalks.map(t => t.group))].map(label => ({ label, rows: termTalks.filter(t => t.group === label) }));
 
