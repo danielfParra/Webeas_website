@@ -30,6 +30,10 @@ python -m http.server 8000
 
 Then open <http://localhost:8000/>. No build or package installation is required. Internet access is needed for Google Fonts and the runtime's external dependencies.
 
+## Calendar checks
+
+Run `node tests/calendar.test.cjs` to check the calendar export's timezone definition, UTF-8 line folding, and text escaping.
+
 ## Editing
 
 - Edit `index.html` to change the page content, styling, or seminar data.

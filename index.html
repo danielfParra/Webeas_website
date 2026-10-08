@@ -374,19 +374,43 @@ const COMMITTEE = [
 
 
 
-function downloadICS(t) {
+function buildICS(t) {
   const d = t.iso.replace(/-/g, '');
-  const esc = s => String(s).replace(/([,;\\])/g, '\\$1');
-  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//WEBEAS//Seminar//EN','BEGIN:VEVENT',
-    'UID:' + d + '-webeas@webeas.org','DTSTAMP:' + d + 'T000000Z',
+  const esc = s => String(s).replace(/\\/g, '\\\\').replace(/\r\n|\r|\n/g, '\\n').replace(/([,;])/g, '\\$1');
+  const encoder = new TextEncoder();
+  const fold = line => {
+    let output = '', bytes = 0;
+    for (const character of line) {
+      const size = encoder.encode(character).length;
+      if (bytes + size > 75) { output += '\r\n '; bytes = 1; }
+      output += character;
+      bytes += size;
+    }
+    return output;
+  };
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  // Eastern time rules for the seminar dates (2007 onward).
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//WEBEAS//Seminar//EN','CALSCALE:GREGORIAN',
+    'BEGIN:VTIMEZONE','TZID:America/New_York',
+    'BEGIN:DAYLIGHT','DTSTART:20070311T020000','TZOFFSETFROM:-0500','TZOFFSETTO:-0400','TZNAME:EDT',
+    'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU','END:DAYLIGHT',
+    'BEGIN:STANDARD','DTSTART:20071104T020000','TZOFFSETFROM:-0400','TZOFFSETTO:-0500','TZNAME:EST',
+    'RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU','END:STANDARD','END:VTIMEZONE','BEGIN:VEVENT',
+    'UID:' + d + '-webeas@webeas.org','DTSTAMP:' + stamp,
     'DTSTART;TZID=America/New_York:' + d + 'T120000','DTEND;TZID=America/New_York:' + d + 'T130000',
     'SUMMARY:' + esc(t.speaker ? 'WEBEAS — ' + t.speaker : 'WEBEAS seminar'),
     'DESCRIPTION:' + esc((t.title || 'Title TBA') + ' — Zoom link is sent to the mailing list. Register: ' + FORM),
-    'LOCATION:Zoom','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    'LOCATION:Zoom','END:VEVENT','END:VCALENDAR'].map(fold).join('\r\n') + '\r\n';
+}
+
+function downloadICS(t) {
+  const ics = buildICS(t);
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+  const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
+  a.href = url;
   a.download = 'webeas-' + t.iso + '.ics';
   document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 class Component extends DCLogic {
